@@ -13,7 +13,7 @@ export default function Sidebar(){
         
     ]
 
-    return <div className=" sm:border-r-2 sm:w-[300px]  h-screen" >
+    return <div className=" sm:border-r-2 sm:w-[300px]  sm:h-screen" >
         <div className="container p-5 ">
             <div className="flex  justify-between items-center">
             <div className="flex items-center sm:ml-5   gap-2 ">

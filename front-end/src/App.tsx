@@ -5,7 +5,7 @@ import './index.css'
 function App() {
 
   return (
-    <div className='flex '>
+    <div className='sm:flex '>
       <div>
       <Sidebar/>
       </div>
