@@ -1,12 +1,12 @@
     import { FaXTwitter, FaYoutube } from "react-icons/fa6"
 import { MdDeleteOutline } from "react-icons/md"
-import AddContent from "./AddContent"
 export default function Hero(){
     const content = [
         {link: "https://twitter.com/three_cube/status/1847014253511037322",type:"twitter",title:"Job"},
         {link: "https://www.youtube.com/watch?v=1gvGn8NtIpE",type:"youtube",title:"Cyberpunk"},
     ]
 
+    
 
 
     return <div className="container">
@@ -27,7 +27,7 @@ export default function Hero(){
                 </div>
             </div>)}
         </div>
-        <AddContent/>
+      
     </div>
 }
 
