@@ -12,5 +12,6 @@ export default function Navbar(){
                 <button className="sm:text-xl text-base font-semibold px-2 py-2 sm:px-4 sm:py-2 bg-purple-600 flex items-center justify-center gap-2 rounded-xl text-white" ><FaPlus/>Add Content</button>
             </div>
         </div>
+        
     </div>
 }
