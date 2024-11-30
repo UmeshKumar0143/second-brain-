@@ -1,11 +1,11 @@
-import { Button } from './components/ui/Button'
+import Sidebar from './components/SideBar'
 import './index.css'
 
 function App() {
 
   return (
     <div className=' '>
-      <Button text="hello" onclick={()=>{}} variants='primary'size ='sm'  />
+      <Sidebar/>
     </div>
   )
 }
