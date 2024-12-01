@@ -1,4 +1,4 @@
-import { DiVim } from "react-icons/di";
+import { BiHome } from "react-icons/bi";
 import { FaBars, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { IoDocumentTextOutline, IoLinkSharp } from "react-icons/io5";
 import { LuBrain } from "react-icons/lu";
@@ -6,9 +6,9 @@ import { LuBrain } from "react-icons/lu";
 export default function Sidebar(){
 
     const items = [
+        {title: "Home", icon: <BiHome />},
         {title: "Tweets", icon: <FaXTwitter />},
         {title: "Videos", icon: <FaYoutube/> },
-        {title: "Documents", icon: <IoDocumentTextOutline /> },
         {title: "Links", icon: <IoLinkSharp /> },
         
     ]

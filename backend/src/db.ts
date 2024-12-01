@@ -4,6 +4,7 @@ import { MONGO_URL } from "./config";
 mongoose.connect(MONGO_URL); 
 console.log("Connected"); 
 const UserSchema = new Schema({
+    name: String, 
     username: {type: String, unique: true},
     password: {type: String , required : true}
 })

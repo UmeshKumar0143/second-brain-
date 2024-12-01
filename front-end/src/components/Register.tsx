@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import axios  from "axios";
+import { BACKEND_URL } from "./config";
 interface propsdata {
   text?: string | null;
 }
@@ -12,12 +13,21 @@ export default function Register({ text }: { text: propsdata }) {
   const [loader, setLoader] = useState(false);
 
 
-  const handleLogin = ()=>{
-    
+  const handleLogin = async ()=>{
+   const response = await axios.post(`${BACKEND_URL}user/api/v1/signin`,{
+    email,
+    password
+   })
+   console.log(response); 
   }
 
-  const handleRegister = ()=>{
-
+  const handleRegister = async ()=>{
+    const response =  await axios.post(`${BACKEND_URL}user/api/v1/signup`,{
+      name, 
+      email,
+      password
+    })
+    console.log(response.data); 
   }
 
   const handleClose = () => {
@@ -46,7 +56,7 @@ export default function Register({ text }: { text: propsdata }) {
         )}
 
         <div className="flex flex-col p-5 gap-3  border shadow-xl py-10 w-[450px] rounded-lg">
-          <h1 className="text-3xl text-purple-500 font-bold text-center">
+          <h1 className="text-3xl text-purple-700 font-bold text-center">
             {text ? "Log in to your Account " : "Create New Account"}
           </h1>
 

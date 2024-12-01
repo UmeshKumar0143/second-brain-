@@ -9,12 +9,12 @@ const userRouter = express.Router();
 const JWT_PASSWORD = JWT_SECRET; 
 
 userRouter.post("/api/v1/signup", async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    const {name, email , password} = req.body; 
     const hashedPass = await bcrypt.hash(password,5); 
     try {
        const user =  await UserModel.create({
-            username: username,
+            name: name, 
+            username: email,
             password: hashedPass
         }) 
 
@@ -42,19 +42,21 @@ userRouter.post("/api/v1/signup", async (req, res) => {
 
 userRouter.post("/api/v1/signin", async (req, res) => {
    try {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
+    console.log(email,password);
     const existingUser = await UserModel.findOne({
-        username,
+        username: email,
     })
-    if(!existingUser){
-         res.status(403).json({message: "user not find"}); 
-    }
+    console.log(existingUser); 
+    // if(!existingUser){
+    //      res.status(403).json({message: "user not find"}); 
+    // }
     if (existingUser) {
         const hashedPass = await bcrypt.compare(password,existingUser.password); 
 
-        if(!hashedPass){  res.status(403).json({ message: "Incorrect credentials" });}
-        
+        if(!hashedPass){  res.status(403).json({ message: "Incorrect credentials" });
+    }else{
         const token = jwt.sign({
             id: existingUser._id
         }, JWT_PASSWORD)
@@ -64,10 +66,8 @@ userRouter.post("/api/v1/signin", async (req, res) => {
             sameSite: "strict",
 
         })
+    }
         
-        res.json({
-            token
-        })
     } else {
         res.status(403).json({
             message: "Incorrrect credentials"
