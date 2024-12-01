@@ -1,16 +1,23 @@
+import axios from "axios";
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { BACKEND_URL } from "../config";
 
 interface AddContentProp {
     setIsOpen: (isopen: boolean ) =>void
 }
 
 export default function AddContent({setIsOpen}:AddContentProp){
-    const [content, setContent] = useState("youtube"); 
+    const [type, setType] = useState("youtube"); 
     const [title,setTitle] = useState(""); 
     const [link,setLink] = useState(""); 
     const handleClose = ()=>{
         setIsOpen(false)
+    }
+    const HandleSubmit = async ()=>{
+           const response =  await axios.post(`${BACKEND_URL}content/api/v1/addcontent`,{title,link,type},{withCredentials:true}); 
+           console.log(response.data); 
+        
     }
     return <div className="absolute top-0 left-0 h-screen flex justify-center  items-center w-screen bg-opacity-60 bg-gray-100 ">
             <div className="w-[500px] h-[450px] rounded-xl shadow-lg bg-white  absolute ">
@@ -25,11 +32,11 @@ export default function AddContent({setIsOpen}:AddContentProp){
                     <div className="mt-5">
                         <h1 className="text-center font-bold uppercase  text-lg ">Type</h1>
                         <div className="flex gap-4 mt-3 justify-center">
-                        <button onClick={()=>setContent("youtube")}  className={`px-4 py-2 bg-purple-300 hover:scale-110 transition-all ease-in-out duration-100 rounded-xl text-lg font-bold ${content=="youtube"? "bg-purple-500 text-white": "bg-purple-300 text-purple-500"} `}>Youtube</button>
-                        <button  onClick={()=>setContent("tweet")} className={`px-4 py-2 bg-purple-300 hover:scale-110 transition-all ease-in-out duration-100 rounded-xl text-lg font-bold ${content=="tweet"? "bg-purple-500 text-white": "bg-purple-300 text-purple-500"} `}>Twitter</button>
+                        <button onClick={()=>setType("youtube")}  className={`px-4 py-2 bg-purple-300 hover:scale-110 transition-all ease-in-out duration-100 rounded-xl text-lg font-bold ${type=="youtube"? "bg-purple-500 text-white": "bg-purple-300 text-purple-500"} `}>Youtube</button>
+                        <button  onClick={()=>setType("tweet")} className={`px-4 py-2 bg-purple-300 hover:scale-110 transition-all ease-in-out duration-100 rounded-xl text-lg font-bold ${type=="tweet"? "bg-purple-500 text-white": "bg-purple-300 text-purple-500"} `}>Twitter</button>
                         </div>
                     </div>
-                    <button className="w-full bg-purple-500 rounded-xl px-2 py-2 mt-3 text-lg text-white font-bold">Submit</button>
+                    <button onClick={HandleSubmit} className="w-full bg-purple-500 rounded-xl px-2 py-2 mt-3 text-lg text-white font-bold">Submit</button>
                     </div>
                 </div>
             </div>

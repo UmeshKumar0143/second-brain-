@@ -3,13 +3,11 @@ import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import Sidebar from './components/SideBar'
 import './index.css'
-import { UserContextProvider } from './useContext'
 import Sign from './components/Sign'
 
 function App() {
 
   return (
-    <UserContextProvider>
     <BrowserRouter>
     <Routes>
     <Route path='/' element={  <div className='sm:flex '>
@@ -25,7 +23,6 @@ function App() {
     <Route path='/login' element={<Sign text={"login"} />}/>
     </Routes>
     </BrowserRouter>
-    </UserContextProvider>
   )
 }
 

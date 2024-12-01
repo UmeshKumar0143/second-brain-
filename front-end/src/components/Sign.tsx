@@ -1,7 +1,5 @@
-import { useContext, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
-import { userContext } from "../useContext";
 import { useNavigate } from "react-router-dom";
 interface propsdata {
   text?: string;
@@ -13,12 +11,9 @@ export default function Sign({ text }: { text: propsdata }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loader, setLoader] = useState(false);
-  const context = useContext(userContext);
   const navigate = useNavigate();
 
-  if (!context) {
-    console.log("No User");
-  }
+  
 
   const handleLogin = async () => {
     try {
@@ -32,7 +27,7 @@ export default function Sign({ text }: { text: propsdata }) {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        context?.setUser(response.data.existingUser);
+        localStorage.setItem("user",JSON.stringify(response.data.existingUser));
         navigate("/");
       } else {
         setError("Invalid credentials. Please try again.");
@@ -60,7 +55,7 @@ export default function Sign({ text }: { text: propsdata }) {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        context?.setUser(response.data.user);
+        localStorage.setItem("user",JSON.stringify(response.data.user));
         navigate("/");
       }
     } catch (error: any) {

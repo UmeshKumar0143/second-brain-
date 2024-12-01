@@ -1,25 +1,36 @@
-    import { useContext, } from "react"
+    import { useEffect, useState, } from "react"
 import { FaXTwitter, FaYoutube } from "react-icons/fa6"
 import { MdDeleteOutline } from "react-icons/md"
-import { Link } from "react-router-dom"
-import { userContext } from "../useContext"
+import {  Link } from "react-router-dom"
+import { BACKEND_URL } from "../config"
 export default function Hero(){
-    const content = [
+    const [content , setContent] = useState([
         {link: "https://twitter.com/three_cube/status/1847014253511037322",type:"twitter",title:"Job"},
         {link: "https://www.youtube.com/watch?v=1gvGn8NtIpE",type:"youtube",title:"Cyberpunk"},
-    ]
-    const context = useContext(userContext); 
-    if(!content){
-        console.log("no user"); 
-    }    
+    ])
+   
 
+    useEffect(()=>{
+        fetch(`${BACKEND_URL}content/api/v1/getContent`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include', 
+          })
+            .then((response) => response.json())
+            .then((data) => setContent(data.content)); 
 
+    },[])
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+    console.log(user); 
+    console.log(content)
     return <div className="container">
          <blockquote className="twitter-tweet text-black">
                      <a href="https://x.com/fromAlqama/status/1862510295882641507"></a> 
                 </blockquote>
-        {context?.user  ? <div className="flex  gap-8 ">
-           {content.map((item,index)=> <div key={index} id="cards" className=" w-[400px] overflow-hidden overflow-y-auto h-[450px] p-4 rounded-xl bg-slate-100  shadow-lg">
+        {user  ? <div className="flex flex-wrap  gap-10 ">
+           {content.map((item,index)=> <div key={index} id="cards" className=" w-[400px] overflow-hidden overflow-y-auto h-[450px] flex-shrink p-4 rounded-xl bg-slate-100  shadow-lg">
                 <div className="flex  justify-between border-b-2  pb-2 items-center">
                     <h1 className="text-xl inline-flex  justify-center  items-center gap-2 font-semibold">{item.type=="twitter"? <FaXTwitter/>: <FaYoutube className="text-2xl"/>}{item.type=="twitter"? "Tweets": "Youtube"}</h1>
                         <span className="text-black hover:cursor-pointer hover:scale-110 text-2xl" ><MdDeleteOutline /></span>
