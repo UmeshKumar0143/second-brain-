@@ -5,6 +5,8 @@ import { useContext, useState } from "react";
 import { IoMdExit } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../useContext";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 export default function Navbar(){
     const  [isOpen, setIsOpen] = useState(false); 
@@ -13,11 +15,11 @@ export default function Navbar(){
     if(!context){
         console.log("No user");
     }
-    console.log(context); 
     const HandleOpen =()=>{
         setIsOpen(true)
     }
     const HandleLogout = ( )=>{
+        axios.post(`${BACKEND_URL}api/v1/logout`,{},{withCredentials:true}); 
         context?.setUser(null); 
     }
     return <div className="container ">
