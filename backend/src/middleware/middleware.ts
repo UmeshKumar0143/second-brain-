@@ -5,7 +5,9 @@ import { JWT_SECRET } from "../config";
 const JWT_PASSWORD = JWT_SECRET
 
 export const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const header = req.headers["authorization"];
+   try {
+    const header = req.cookies.token;
+    if(!header){res.json({message: "Log in first"})};   
     const decoded = jwt.verify(header as string, JWT_PASSWORD)
     if (decoded) {
         //@ts-ignore
@@ -16,4 +18,7 @@ export const userMiddleware = (req: Request, res: Response, next: NextFunction) 
             message: "You are not logged in"
         })
     }
+   } catch (error) {
+    res.json("Error Occured"); 
+   }
 }

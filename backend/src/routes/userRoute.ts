@@ -80,4 +80,9 @@ userRouter.post("/api/v1/signin", async (req, res) => {
    }
 })
 
+userRouter.post("/api/v1/logout",async (req , res)=>{
+    res.clearCookie("token"); 
+    res.json("Loogedout"); 
+})
+
 export default userRouter; 
