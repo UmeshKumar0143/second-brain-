@@ -25,11 +25,12 @@ userRouter.post("/api/v1/signup", async (req, res) => {
                 sameSite: "strict",
 
             })
-            res.json({
+            res.status(200).json({
+                user,
                 message: "User signed up",
             })
         }else{
-            res.json("Trouble signing-up in "); 
+            res.json("User not created"); 
         }
                 
 
@@ -66,6 +67,7 @@ userRouter.post("/api/v1/signin", async (req, res) => {
             sameSite: "strict",
 
         })
+        res.status(200).json({existingUser}); 
     }
         
     } else {

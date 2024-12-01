@@ -1,33 +1,64 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios  from "axios";
-import { BACKEND_URL } from "./config";
+import { BACKEND_URL } from "../config";
+import { userContext } from "../useContext";
+import { useNavigate } from "react-router-dom";
 interface propsdata {
-  text?: string | null;
+  text?: string;
 }
 
-export default function Register({ text }: { text: propsdata }) {
+export default function Sign({ text }: { text: propsdata }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loader, setLoader] = useState(false);
+  const context  = useContext(userContext);  
+  const navigate = useNavigate(); 
 
-
+  if(!context){
+    console.log("No User"); 
+  }
   const handleLogin = async ()=>{
-   const response = await axios.post(`${BACKEND_URL}user/api/v1/signin`,{
-    email,
-    password
-   })
-   console.log(response); 
+   try {
+     setLoader(true)
+    const response = await axios.post(`${BACKEND_URL}user/api/v1/signin`,{
+      email,
+      password
+     })
+     if(response.status===200){
+      context?.setUser(response.data.existingUser); 
+    
+      navigate('/'); 
+     }else{
+      setError("Incorret credentials")
+     }
+   } catch (error) {
+    setError("A Error Occured"); 
+   }finally{
+    setLoader(false);   
+   }
   }
 
   const handleRegister = async ()=>{
-    const response =  await axios.post(`${BACKEND_URL}user/api/v1/signup`,{
-      name, 
-      email,
-      password
-    })
-    console.log(response.data); 
+    try {
+      const response =  await axios.post(`${BACKEND_URL}user/api/v1/signup`,{
+        name, 
+        email,
+        password
+      })
+
+      if(response.status==200){
+        context?.setUser(response.data.user); 
+        console.log("user: ",response.data.user)
+        navigate('/');
+      }
+
+    }
+    catch (error) {
+      console.log(error)
+      setError("User already exists"); 
+    }
   }
 
   const handleClose = () => {
@@ -135,5 +166,5 @@ export default function Register({ text }: { text: propsdata }) {
         </div>
       </div>
     </div>
-  );
-}
+  )
+  }

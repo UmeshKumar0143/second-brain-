@@ -9,6 +9,7 @@ export default function AddContent({setIsOpen}:AddContentProp){
     const [content, setContent] = useState("youtube"); 
     const [title,setTitle] = useState(""); 
     const [link,setLink] = useState(""); 
+    document.querySelector('html')?.onclick(setIsOpen(false)); 
     const handleClose = ()=>{
         setIsOpen(false)
     }
