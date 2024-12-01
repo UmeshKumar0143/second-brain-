@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface propsdata {
-  text: string | null;
+  text?: string | null;
 }
 
 export default function Register({ text }: { text: propsdata }) {
