@@ -1,6 +1,7 @@
 import mongoose, {model, Schema} from "mongoose";
+import { MONGO_URL } from "./config";
 
-mongoose.connect("mongodb://localhost:27017/second-brain")
+mongoose.connect(MONGO_URL); 
 console.log("Connected"); 
 const UserSchema = new Schema({
     username: {type: String, unique: true},
