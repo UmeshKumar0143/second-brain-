@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { BACKEND_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 interface AddContentProp {
     setIsOpen: (isopen: boolean ) =>void
@@ -11,16 +12,18 @@ export default function AddContent({setIsOpen}:AddContentProp){
     const [type, setType] = useState("youtube"); 
     const [title,setTitle] = useState(""); 
     const [link,setLink] = useState(""); 
+    const navigate = useNavigate(); 
     const handleClose = ()=>{
         setIsOpen(false)
     }
     const HandleSubmit = async ()=>{
            const response =  await axios.post(`${BACKEND_URL}content/api/v1/addcontent`,{title,link,type},{withCredentials:true}); 
            console.log(response.data); 
-        
+            navigate('/');
+            handleClose();
     }
     return <div className="absolute top-0 left-0 h-screen flex justify-center  items-center w-screen bg-opacity-60 bg-gray-100 ">
-            <div className="w-[500px] h-[450px] rounded-xl shadow-lg bg-white  absolute ">
+            <div className="  w-[500px] h-[450px] rounded-xl shadow-lg bg-white  absolute ">
                 <div className="container mt-5 p-5">
                     <IoCloseSharp onClick={handleClose} className="text-2xl hover:cursor-pointer absolute right-5 top-4" />
                     <h1 className="text-2xl text-center font-bold tracking-tighter uppercase text-purple-600 ">Add a new Link  </h1>
