@@ -41,7 +41,6 @@ contentRouter.delete("/api/v1/deletecontent/:id", userMiddleware, async (req, re
        try {
           // @ts-ignore
           const userId = req.userId;
-         if(!userId){res.json("no token")};
  
          if(userId){
              const contentId = req.params.id; 
