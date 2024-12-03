@@ -3,8 +3,10 @@ import { FaXTwitter, FaYoutube } from "react-icons/fa6"
 import { MdDeleteOutline } from "react-icons/md"
 import {  Link, useLocation } from "react-router-dom"
 import { BACKEND_URL } from "../config"
+import axios from "axios"
 
 interface items {
+    _id: string; 
     type: "tweet" | "youtube";
     title: string; 
     link: string; 
@@ -34,7 +36,7 @@ export default function Hero(){
            {content.slice().reverse().map((item,index)=> <div key={index} id="cards" className=" w-[350px] overflow-hidden overflow-y-auto h-[450px] flex-shrink p-4 rounded-xl bg-slate-100  shadow-lg">
                 <div className="flex  justify-between border-b-2  pb-2 items-center">
                     <h1 className="text-xl inline-flex  justify-center  items-center gap-2 font-semibold">{item.type=="tweet"? <FaXTwitter/>: <FaYoutube className="text-2xl text-red-500"/>}{item.type=="tweet"? "Tweets": "Youtube"}</h1>
-                        <span className="text-red-400 hover:cursor-pointer hover:scale-110 text-2xl" ><MdDeleteOutline /></span>
+                        <button onClick={()=>axios.delete(`${BACKEND_URL}content/api/v1/deletecontent/${item._id}`,{withCredentials: true})} className="text-red-400 hover:cursor-pointer hover:scale-110 text-2xl" ><MdDeleteOutline /></button>
                 </div>
                 <h1 className="text-xl font-semibold text-center mt-4 underline capitalize tracking-wider leading-none "><Link to={item.link} target="_blank" >{item.title}</Link></h1>
                 <div className="imbed mt-8  w-full   rounded-xl">
