@@ -7,7 +7,6 @@ const JWT_PASSWORD = JWT_SECRET
 export const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
    try {
     const header = req.cookies.token;
-    console.log(header); 
     if(!header){res.json({message: "Log in first"})};   
     const decoded = jwt.verify(header as string, JWT_PASSWORD)
     if (decoded) {

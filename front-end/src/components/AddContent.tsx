@@ -18,7 +18,6 @@ export default function AddContent({setIsOpen}:AddContentProp){
     }
     const HandleSubmit = async ()=>{
            const response =  await axios.post(`${BACKEND_URL}content/api/v1/addcontent`,{title,link,type},{withCredentials:true}); 
-           console.log(response.data); 
             navigate('/');
             handleClose();
     }

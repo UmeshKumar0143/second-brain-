@@ -45,11 +45,9 @@ userRouter.post("/api/v1/signin", async (req, res) => {
    try {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email,password);
     const existingUser = await UserModel.findOne({
         username: email,
     })
-    console.log(existingUser); 
     // if(!existingUser){
     //      res.status(403).json({message: "user not find"}); 
     // }
@@ -76,7 +74,6 @@ userRouter.post("/api/v1/signin", async (req, res) => {
         })
     }
    } catch (error) {
-    console.log("error"); 
     res.json("Error Occred"); 
 
    }

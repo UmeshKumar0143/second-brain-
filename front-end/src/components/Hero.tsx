@@ -1,7 +1,7 @@
     import { useEffect, useState, } from "react"
 import { FaXTwitter, FaYoutube } from "react-icons/fa6"
 import { MdDeleteOutline } from "react-icons/md"
-import {  Link, useLocation } from "react-router-dom"
+import {  Link } from "react-router-dom"
 import { BACKEND_URL } from "../config"
 import axios from "axios"
 
@@ -14,7 +14,6 @@ interface items {
 
 export default function Hero(){
     const [content , setContent] = useState<items[]>([])
-    const location = useLocation(); 
     useEffect(()=>{
         fetch(`${BACKEND_URL}content/api/v1/getContent`, {
             method: 'GET',
@@ -26,7 +25,7 @@ export default function Hero(){
             .then((response) => response.json())
             .then((data) => setContent(data.content)); 
 
-    },[location.pathname])
+    },[content])
     const user = JSON.parse(localStorage.getItem("user") || "null");
     return <div className="container">
          <blockquote className="twitter-tweet text-black">

@@ -15,8 +15,7 @@ export default function Navbar(){
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem("user") || "null");
         setUser(storedUser);
-      }, []);
-     console.log(user); 
+      }, [user]);
     const HandleOpen =()=>{
         setIsOpen(true)
     }
