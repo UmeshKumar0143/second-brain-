@@ -2,11 +2,9 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-interface propsdata {
-  text?: string;
-}
 
-export default function Sign({ text }: { text: propsdata }) {
+
+export default function Sign({ text }: { text?: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

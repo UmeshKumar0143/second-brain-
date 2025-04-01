@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/SideBar'
 import './index.css'
 import Sign from './components/Sign'
+import Tweet from './components/Tweets'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
     </div>}/>
     <Route path='/register' element={<Sign />}/>
     <Route path='/login' element={<Sign text={"login"} />}/>
+    <Route path='/tweets' element={<Tweet/>}/>
     </Routes>
     </BrowserRouter>
   )

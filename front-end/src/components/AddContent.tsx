@@ -3,9 +3,19 @@ import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 interface AddContentProp {
     setIsOpen: (isopen: boolean ) =>void
+}
+
+export function notify(type: string, error ? : string ){
+        if(type=="sucess"){
+            toast.success("Content Added Sucessfully")
+        }
+        if(type=="error"){
+            toast.error(error)
+        }
 }
 
 export default function AddContent({setIsOpen}:AddContentProp){
@@ -16,10 +26,26 @@ export default function AddContent({setIsOpen}:AddContentProp){
     const handleClose = ()=>{
         setIsOpen(false)
     }
+
+
     const HandleSubmit = async ()=>{
+        if(!title.trim()){
+            notify("error", "Please Provide a title ")
+            return; 
+        }
+        if(type=="youtube" && !link.includes("youtube")){
+            notify("error", "Please Provide a title ")
+            return; 
+        }
+
+        if(type=="tweet" && !link.includes("twitter")){
+            notify("error", "Please Provide a title ")
+            return; 
+        }
            const response =  await axios.post(`${BACKEND_URL}content/api/v1/addcontent`,{title,link,type},{withCredentials:true}); 
-            navigate('/');
-            handleClose();
+           navigate('/');
+           handleClose();
+           notify("sucess", "Contnet Added Sucessfully "); 
     }
     return <div className="absolute top-0 left-0 h-screen flex justify-center  items-center w-screen bg-opacity-60 bg-gray-100 ">
             <div className="  w-[500px] h-[450px] rounded-xl shadow-lg bg-white  absolute ">
@@ -28,7 +54,7 @@ export default function AddContent({setIsOpen}:AddContentProp){
                     <h1 className="text-2xl text-center font-bold tracking-tighter uppercase text-purple-600 ">Add a new Link  </h1>
                     <div className="mt-3">
                     <label htmlFor="Title" className="text-lg font-medium">Enter your Title: </label>
-                    <input onChange={(e)=>setTitle(e.target.value)} value={title} id="Title" className="px-4 py-2 text-lg font-bold rounded-lg border-2 w-full focus:outline-purple-400 " placeholder="Title" type="text" />
+                    <input onChange={(e)=>setTitle(e.target.value)} value={title} id="Title"  className="px-4 py-2 text-lg font-bold rounded-lg border-2 w-full focus:outline-purple-400 " placeholder="Title" type="text" />
                     <label htmlFor="link" className="text-lg font-medium">Paste you link: </label>
                     <input onChange={(e)=>setLink(e.target.value)} value={link} id="link" className="px-4 py-2 rounded-lg text-lg  text-blue-400 border-2 w-full focus:outline-purple-400 " placeholder="Paste your link " type="text" />
                     <div className="mt-5">
@@ -42,5 +68,6 @@ export default function AddContent({setIsOpen}:AddContentProp){
                     </div>
                 </div>
             </div>
+            <ToastContainer/>
     </div>
 }

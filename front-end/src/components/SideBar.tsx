@@ -1,15 +1,18 @@
 import { BiHome } from "react-icons/bi";
 import { FaBars, FaXTwitter, FaYoutube } from "react-icons/fa6";
-import { IoDocumentTextOutline, IoLinkSharp } from "react-icons/io5";
+import {  IoLinkSharp } from "react-icons/io5";
 import { LuBrain } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar(){
 
+    const navigate = useNavigate(); 
+
     const items = [
-        {title: "Home", icon: <BiHome />},
-        {title: "Tweets", icon: <FaXTwitter />},
-        {title: "Videos", icon: <FaYoutube/> },
-        {title: "Links", icon: <IoLinkSharp /> },
+        {title: "Home", icon: <BiHome /> , path: '/'},
+        {title: "Tweets", icon: <FaXTwitter />, path: '/tweets'},
+        {title: "Videos", icon: <FaYoutube/> , path:'/vidoes'},
+        {title: "Links", icon: <IoLinkSharp /> , path:'links'},
         
     ]
 
@@ -25,7 +28,7 @@ export default function Sidebar(){
          
             <div className="mt-12 sm:flex hidden  flex-col gap-6 ">
             {
-                items.map((item,index)=> <div key={index} className="hover:cursor-pointer hover:bg-purple-100 px-5 py-2 transition-all duration-200 ease-in-out  rounded-xl">
+                items.map((item,index)=> <div key={index} onClick={()=>navigate(`${item.path}`)} className="hover:cursor-pointer hover:bg-purple-100 px-5 py-2 transition-all duration-200 ease-in-out  rounded-xl">
                     <span className="inline-flex  justify-center items-center text-2xl  gap-4">{item.icon}{item.title}</span>
                 </div> )
             }
