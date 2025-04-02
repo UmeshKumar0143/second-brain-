@@ -66,4 +66,20 @@ contentRouter.get("/api/v1/brain/:shareLink", (req, res) => {
 
 })
 
+contentRouter.get("/api/v1/getTweets", userMiddleware, async (req, res) => {
+    try {
+      // @ts-ignore
+      const userId = req.userId;
+      if(!userId){res.json("no token")}; 
+      const content = await ContentModel.find({
+          userId: userId, 
+          type: "tweet", 
+      }).populate("userId", "username")
+      res.json({
+          content
+      })
+    } catch (error) {
+     res.json({mesage: 'error'})
+    }
+ })
 export default contentRouter; 
