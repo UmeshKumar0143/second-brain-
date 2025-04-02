@@ -25,7 +25,7 @@ export default function Hero(){
             .then((response) => response.json())
             .then((data) => setContent(data.content)); 
 
-    },[content])
+    },[])
     const user = JSON.parse(localStorage.getItem("user") || "null");
     return <div className="container">
          <blockquote className="twitter-tweet text-black">
